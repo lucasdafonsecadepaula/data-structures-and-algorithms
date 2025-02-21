@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cassert>
+using namespace std;
 
 class Node
 {
@@ -58,7 +59,6 @@ public:
     {
         if (head == nullptr)
         {
-            std::cout << "List is empty, nothing to remove.\n";
             return;
         }
 
@@ -81,10 +81,6 @@ public:
             Node *temp = cur->next;
             cur->next = cur->next->next;
             delete temp;
-        }
-        else
-        {
-            std::cout << "Value " << value << " not found in the linked-list.\n";
         }
     }
 
@@ -113,46 +109,86 @@ public:
         }
         return count;
     }
-
-    void print() const
-    {
-        std::cout << "Printing linked list: ";
-        Node *cur = head;
-        while (cur != nullptr)
-        {
-            std::cout << cur->data << " -> ";
-            cur = cur->next;
-        }
-        std::cout << "nullptr\n";
-    }
 };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 void testLinkedList(LinkedList &list)
 {
-    list.insertFront(10);
-    list.insertFront(20);
-    list.insertBack(30);
+    assert(list.size() == 0);
+    assert(!list.contains(10));
 
-    assert(list.size() == 3);
+    list.insertFront(10);
+    assert(list.size() == 1);
     assert(list.contains(10));
-    assert(list.contains(20));
+
+    list.insertBack(30);
+    assert(list.size() == 2);
     assert(list.contains(30));
 
+    list.insertFront(20);
+    assert(list.size() == 3);
+    assert(list.contains(20));
+
+    list.insertBack(40);
+    assert(list.size() == 4);
+    assert(list.contains(40));
+
     list.remove(20);
-    assert(list.size() == 2);
+    assert(list.size() == 3);
     assert(!list.contains(20));
 
     list.remove(10);
+    assert(list.size() == 2);
     assert(!list.contains(10));
+
+    list.remove(40);
+    assert(list.size() == 1);
+    assert(!list.contains(40));
 
     list.remove(30);
     assert(list.size() == 0);
+    assert(!list.contains(30));
+
+    list.remove(50);
+    assert(list.size() == 0);
+
+    list.insertFront(60);
+    list.insertBack(70);
+    list.insertFront(50);
+    assert(list.size() == 3);
+    assert(list.contains(50));
+    assert(list.contains(60));
+    assert(list.contains(70));
+
+    list.remove(999);
+    assert(list.size() == 3);
+
+    std::cout << "All tests passed!\n";
 }
 
 int main()
 {
     LinkedList myList;
     testLinkedList(myList);
-    std::cout << "All tests passed!\n";
     return 0;
 }

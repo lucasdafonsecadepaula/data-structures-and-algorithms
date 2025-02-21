@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cassert>
+using namespace std;
 
 class Node
 {
@@ -15,20 +16,8 @@ class LinkedList
 private:
     Node *head;
 
-    void delRec(Node *node)
-    {
-    }
-
-    bool helperContains(Node *node, int value)
-    {
-    }
-
-    int helperSize(Node *node)
-    {
-    }
-
 public:
-    LinkedList() {}
+    LinkedList() : head(nullptr) {}
 
     ~LinkedList()
     {
@@ -46,45 +35,93 @@ public:
     {
     }
 
-    bool contains(int value)
+    bool contains(int value) const
     {
     }
 
-    int size()
-    {
-    }
-
-    void print() const
+    int size() const
     {
     }
 };
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 void testLinkedList(LinkedList &list)
 {
-    list.insertFront(10);
-    list.insertFront(20);
-    list.insertBack(30);
+    assert(list.size() == 0);
+    assert(!list.contains(10));
 
-    assert(list.size() == 3);
+    list.insertFront(10);
+    assert(list.size() == 1);
     assert(list.contains(10));
-    assert(list.contains(20));
+
+    list.insertBack(30);
+    assert(list.size() == 2);
     assert(list.contains(30));
 
+    list.insertFront(20);
+    assert(list.size() == 3);
+    assert(list.contains(20));
+
+    list.insertBack(40);
+    assert(list.size() == 4);
+    assert(list.contains(40));
+
     list.remove(20);
-    assert(list.size() == 2);
+    assert(list.size() == 3);
     assert(!list.contains(20));
 
     list.remove(10);
+    assert(list.size() == 2);
     assert(!list.contains(10));
+
+    list.remove(40);
+    assert(list.size() == 1);
+    assert(!list.contains(40));
 
     list.remove(30);
     assert(list.size() == 0);
+    assert(!list.contains(30));
+
+    list.remove(50);
+    assert(list.size() == 0);
+
+    list.insertFront(60);
+    list.insertBack(70);
+    list.insertFront(50);
+    assert(list.size() == 3);
+    assert(list.contains(50));
+    assert(list.contains(60));
+    assert(list.contains(70));
+
+    list.remove(999);
+    assert(list.size() == 3);
+
+    std::cout << "All tests passed!\n";
 }
 
 int main()
 {
     LinkedList myList;
     testLinkedList(myList);
-    std::cout << "All tests passed!\n";
     return 0;
 }
