@@ -5,7 +5,8 @@ using namespace std;
 
 void bubbleSort(vector<int> &arr)
 {
-    if (arr.empty()) return;
+    if (arr.empty())
+        return;
     bool shouldSort = true;
     while (shouldSort)
     {
