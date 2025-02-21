@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cassert>
+using namespace std;
 
 class TreeNode
 {
@@ -36,10 +37,6 @@ private:
     {
     }
 
-    void inorderTraversal(TreeNode *node) const
-    {
-    }
-
 public:
     BST() : root(nullptr) {}
     ~BST()
@@ -61,16 +58,36 @@ public:
     {
         root = removeRecursive(root, value);
     }
-
-    void inorder() const
-    {
-        return inorderTraversal(root);
-    }
 };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 void testBST()
 {
     BST tree;
+
+    assert(!tree.search(10));
+
+    tree.remove(10);
 
     tree.insert(50);
     tree.insert(30);
@@ -87,6 +104,7 @@ void testBST()
     assert(tree.search(40));
     assert(tree.search(60));
     assert(tree.search(80));
+
     assert(!tree.search(100));
 
     tree.remove(20);
@@ -98,7 +116,12 @@ void testBST()
     tree.remove(50);
     assert(!tree.search(50));
 
-    tree.inorder();
+    assert(tree.search(40));
+    assert(tree.search(60));
+    assert(tree.search(70));
+    assert(tree.search(80));
+
+    tree.remove(100);
 }
 
 int main()
