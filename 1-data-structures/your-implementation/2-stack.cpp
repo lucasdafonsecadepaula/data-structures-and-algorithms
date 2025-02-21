@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cassert>
+using namespace std;
 
 class Stack
 {
@@ -17,13 +18,12 @@ private:
         {
             temp[i] = data[i];
         }
-
         delete[] data;
         data = temp;
     }
 
 public:
-    Stack(int cap): capacity(cap <= 0 ? 1 : cap), size(0), data(new int[capacity]) {}
+    Stack(int cap) : capacity(cap <= 0 ? 1 : cap), size(0), data(new int[capacity]) {}
 
     ~Stack()
     {
@@ -49,35 +49,77 @@ public:
     int getSize() const
     {
     }
-
-    void print() const
-    {
-    }
 };
 
-void testStack(Stack &stack)
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+//
+
+void testStack()
 {
+    Stack stack(2);
+
     assert(stack.isEmpty());
+    assert(stack.getSize() == 0);
+
+    stack.push(5);
+    assert(stack.top() == 5);
+    assert(stack.getSize() == 1);
+    assert(!stack.isEmpty());
 
     stack.push(10);
-    stack.push(20);
-    stack.push(30);
+    assert(stack.top() == 10);
+    assert(stack.getSize() == 2);
 
+    stack.push(15);
     assert(stack.getSize() == 3);
-    assert(stack.top() == 30);
+    assert(stack.top() == 15);
 
     stack.pop();
-    assert(stack.top() == 20);
+    assert(stack.top() == 10);
+    assert(stack.getSize() == 2);
 
     stack.pop();
+    assert(stack.top() == 5);
+    assert(stack.getSize() == 1);
+
     stack.pop();
     assert(stack.isEmpty());
+    assert(stack.getSize() == 0);
+
+    stack.pop();
+    assert(stack.isEmpty());
+
+    try
+    {
+        stack.top();
+        assert(false);
+    }
+    catch (const runtime_error &e)
+    {
+    }
 }
 
 int main()
 {
-    Stack myStack(10);
-    testStack(myStack);
+    testStack();
     std::cout << "All tests passed!\n";
     return 0;
 }
