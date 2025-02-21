@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cassert>
+using namespace std;
 
 class Queue
 {
@@ -13,12 +14,10 @@ private:
     {
         capacity *= 2;
         int *temp = new int[capacity];
-
         for (int i = 0; i < size; i++)
         {
             temp[i] = data[frontIndex + i];
         }
-
         delete[] data;
         data = temp;
         frontIndex = 0;
@@ -47,7 +46,7 @@ public:
     {
         if (isEmpty())
         {
-            std::cout << "Queue is empty! Cannot dequeue.\n";
+            runtime_error("Queue is empty!");
             return;
         }
 
@@ -62,7 +61,10 @@ public:
 
     int front() const
     {
-        assert(size > 0 && "Queue is empty!");
+        if (isEmpty())
+        {
+            runtime_error("Queue is empty!");
+        }
         return data[frontIndex];
     }
 
@@ -75,41 +77,87 @@ public:
     {
         return size;
     }
-
-    void print() const
-    {
-        std::cout << "Printing Queue: ";
-        for (int i = 0; i < size; i++)
-        {
-            std::cout << data[frontIndex + i] << ", ";
-        }
-        std::cout << std::endl;
-    }
 };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 void testQueue(Queue &queue)
 {
     assert(queue.isEmpty());
+    assert(queue.getSize() == 0);
 
     queue.enqueue(10);
+    assert(!queue.isEmpty());
+    assert(queue.getSize() == 1);
+    assert(queue.front() == 10);
+
     queue.enqueue(20);
     queue.enqueue(30);
-
     assert(queue.getSize() == 3);
     assert(queue.front() == 10);
 
     queue.dequeue();
+    assert(queue.getSize() == 2);
     assert(queue.front() == 20);
 
     queue.dequeue();
+    assert(queue.getSize() == 1);
+    assert(queue.front() == 30);
+
     queue.dequeue();
     assert(queue.isEmpty());
+    assert(queue.getSize() == 0);
+
+    queue.enqueue(40);
+    queue.enqueue(50);
+    queue.dequeue();
+    assert(queue.front() == 50);
+    queue.enqueue(60);
+    assert(queue.getSize() == 2);
+    queue.dequeue();
+    queue.dequeue();
+    assert(queue.isEmpty());
+
+    for (int i = 1; i <= 10; i++)
+    {
+        queue.enqueue(i * 10);
+    }
+    assert(queue.getSize() == 10);
+    assert(queue.front() == 10);
+
+    for (int i = 1; i <= 10; i++)
+    {
+        assert(queue.front() == i * 10);
+        queue.dequeue();
+    }
+
+    assert(queue.isEmpty());
+
+    cout << "All tests passed!\n";
 }
 
 int main()
 {
     Queue myQueue(3);
     testQueue(myQueue);
-    std::cout << "All tests passed!\n";
     return 0;
 }
