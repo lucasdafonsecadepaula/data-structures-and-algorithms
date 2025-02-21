@@ -1,7 +1,5 @@
 #include <iostream>
-#include <vector>
 #include <cassert>
-
 using namespace std;
 
 class MinHeap
@@ -11,15 +9,6 @@ private:
     int size;
     int capacity;
 
-    int getParent(int index) const {
-    }
-
-    int getLeftChild(int index) const {
-    }
-
-    int getRightChild(int index) const {
-    }
-
     void heapifyUp(int index)
     {
     }
@@ -28,11 +17,12 @@ private:
     {
     }
 
-    void resize() {
+    void resize()
+    {
         capacity *= 2;
         int *newHeap = new int[capacity];
-
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++)
+        {
             newHeap[i] = heap[i];
         }
         delete[] heap;
@@ -41,9 +31,7 @@ private:
 
 public:
     MinHeap(int cap = 10) : capacity(cap), size(0), heap(new int[capacity]) {}
-    ~MinHeap() {
-        delete[] heap;
-    } 
+    ~MinHeap() { delete[] heap; }
 
     void insert(int value)
     {
@@ -57,16 +45,29 @@ public:
     {
     }
 
-    void printHeap() const
-    {
-        std::cout << "Min Heap: ";
-        for (int i = 0; i < size; i++)
-        {
-            std::cout << heap[i] << " ";
-        }
-        std::cout << std::endl;
-    }
+    bool isEmpty() const {}
 };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 void testMinHeap(MinHeap &heap)
 {
@@ -74,24 +75,44 @@ void testMinHeap(MinHeap &heap)
     heap.insert(20);
     heap.insert(5);
     heap.insert(10);
+    heap.insert(1);
+    heap.insert(40);
+    heap.insert(3);
 
-    assert(heap.peekMin() == 5);
+    assert(heap.peekMin() == 1);
+
+    assert(heap.extractMin() == 1);
+    assert(heap.extractMin() == 3);
     assert(heap.extractMin() == 5);
-    assert(heap.peekMin() == 10);
+    assert(heap.extractMin() == 10);
+    assert(heap.extractMin() == 20);
+    assert(heap.extractMin() == 30);
+    assert(heap.extractMin() == 40);
+
+    assert(heap.isEmpty());
+
+    try
+    {
+        heap.extractMin();
+        assert(false);
+    }
+    catch (const runtime_error &e)
+    {
+        assert(string(e.what()) == "Heap is empty");
+    }
 }
 
 int main()
 {
     try
     {
-        MinHeap myHeap;
-        testMinHeap(myHeap);
-        myHeap.printHeap();
-        std::cout << "All tests passed!\n";
+        MinHeap heap;
+        testMinHeap(heap);
+        cout << "All tests passed!\n";
     }
-    catch (const std::exception &e)
+    catch (const exception &e)
     {
-        std::cout << "Exception: " << e.what() << std::endl;
+        cout << "Exception: " << e.what() << endl;
     }
     return 0;
 }

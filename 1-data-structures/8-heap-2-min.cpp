@@ -1,7 +1,5 @@
 #include <iostream>
-#include <vector>
 #include <cassert>
-
 using namespace std;
 
 class MinHeap
@@ -11,60 +9,52 @@ private:
     int size;
     int capacity;
 
-    int getParent(int index) const {
-        return (index - 1) / 2;
-    }
-
-    int getLeftChild(int index) const {
-        return (index * 2) + 1;
-    }
-
-    int getRightChild(int index) const {
-        return (index * 2) + 2;
-    }
+    int getParent(int index) const { return (index - 1) / 2; }
+    int getLeftChild(int index) const { return (index * 2) + 1; }
+    int getRightChild(int index) const { return (index * 2) + 2; }
 
     void heapifyUp(int index)
     {
-        while(index > 0) {
+        while (index > 0)
+        {
             int parentIndex = getParent(index);
-            if(heap[index] > heap[parentIndex]) break;
-            int temp = heap[index];
-            heap[index] = heap[parentIndex];
-            heap[parentIndex] = temp;
+            if (heap[index] >= heap[parentIndex])
+                break;
+            swap(heap[index], heap[parentIndex]);
             index = parentIndex;
         }
     }
 
     void heapifyDown(int index)
     {
-        int leftChild, rightChild, smallest;
+        while (true)
+        {
+            int leftChild = getLeftChild(index);
+            int rightChild = getRightChild(index);
+            int smallest = index;
 
-        while(index < size / 2) {
-            leftChild = getLeftChild(index); 
-            rightChild = getLeftChild(index);
-            smallest = index;
-
-            if(leftChild < size && heap[smallest] > heap[leftChild]) {
+            if (leftChild < size && heap[leftChild] < heap[smallest])
+            {
                 smallest = leftChild;
             }
-            if(rightChild < size && heap[smallest] > heap[rightChild]) {
+            if (rightChild < size && heap[rightChild] < heap[smallest])
+            {
                 smallest = rightChild;
             }
-            if(smallest == index) break;
+            if (smallest == index)
+                break;
 
-            int temp = heap[index];
-            heap[index] = heap[smallest];
-            heap[smallest] = temp;
-
+            swap(heap[index], heap[smallest]);
             index = smallest;
         }
     }
 
-    void resize() {
+    void resize()
+    {
         capacity *= 2;
         int *newHeap = new int[capacity];
-
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++)
+        {
             newHeap[i] = heap[i];
         }
         delete[] heap;
@@ -73,14 +63,12 @@ private:
 
 public:
     MinHeap(int cap = 10) : capacity(cap), size(0), heap(new int[capacity]) {}
-    ~MinHeap() {
-        delete[] heap;
-    } 
+    ~MinHeap() { delete[] heap; }
 
     void insert(int value)
     {
-        if(size >= capacity) resize();
-
+        if (size >= capacity)
+            resize();
         heap[size] = value;
         heapifyUp(size);
         size++;
@@ -90,11 +78,12 @@ public:
     {
         if (size == 0)
             throw runtime_error("Heap is empty");
-        
+
         int minVal = heap[0];
         heap[0] = heap[size - 1];
         size--;
-        if(size > 0) heapifyDown(0);
+        if (size > 0)
+            heapifyDown(0);
         return minVal;
     }
 
@@ -102,20 +91,32 @@ public:
     {
         if (size == 0)
             throw runtime_error("Heap is empty");
-            
-        return heap[0]; 
+        return heap[0];
     }
 
-    void printHeap() const
-    {
-        std::cout << "Min Heap: ";
-        for (int i = 0; i < size; i++)
-        {
-            std::cout << heap[i] << " ";
-        }
-        std::cout << std::endl;
-    }
+    bool isEmpty() const { return size == 0; }
 };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 void testMinHeap(MinHeap &heap)
 {
@@ -123,24 +124,44 @@ void testMinHeap(MinHeap &heap)
     heap.insert(20);
     heap.insert(5);
     heap.insert(10);
+    heap.insert(1);
+    heap.insert(40);
+    heap.insert(3);
 
-    assert(heap.peekMin() == 5);
+    assert(heap.peekMin() == 1);
+
+    assert(heap.extractMin() == 1);
+    assert(heap.extractMin() == 3);
     assert(heap.extractMin() == 5);
-    assert(heap.peekMin() == 10);
+    assert(heap.extractMin() == 10);
+    assert(heap.extractMin() == 20);
+    assert(heap.extractMin() == 30);
+    assert(heap.extractMin() == 40);
+
+    assert(heap.isEmpty());
+
+    try
+    {
+        heap.extractMin();
+        assert(false);
+    }
+    catch (const runtime_error &e)
+    {
+        assert(string(e.what()) == "Heap is empty");
+    }
 }
 
 int main()
 {
     try
     {
-        MinHeap myHeap;
-        testMinHeap(myHeap);
-        myHeap.printHeap();
-        std::cout << "All tests passed!\n";
+        MinHeap heap;
+        testMinHeap(heap);
+        cout << "All tests passed!\n";
     }
-    catch (const std::exception &e)
+    catch (const exception &e)
     {
-        std::cout << "Exception: " << e.what() << std::endl;
+        cout << "Exception: " << e.what() << endl;
     }
     return 0;
 }
