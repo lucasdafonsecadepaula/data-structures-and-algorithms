@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cassert>
 #include <string>
-
 using namespace std;
 
 class Node
@@ -53,23 +52,28 @@ public:
     void remove(const string &key)
     {
     }
-
-    void print() const
-    {
-        cout << "Hash Table Contents:\n";
-        for (int i = 0; i < capacity; i++)
-        {
-            cout << "Bucket " << i << ": ";
-            Node *cur = table[i];
-            while (cur != nullptr)
-            {
-                cout << "Key: " << cur->key << " Value: " << cur->value << " | ";
-                cur = cur->next;
-            }
-            cout << "\n";
-        }
-    }
 };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 void testHashTable()
 {
@@ -84,20 +88,39 @@ void testHashTable()
     assert(hashTable.search("banana", value) && value == 20);
     assert(hashTable.search("orange", value) && value == 30);
 
+    hashTable.insert("banana", 25);
+    assert(hashTable.search("banana", value) && value == 25);
+
     hashTable.remove("banana");
     assert(!hashTable.search("banana", value));
 
-    hashTable.insert("kiwi", 40);
-    hashTable.insert("grape", 50);
-    hashTable.insert("pear", 60);
+    hashTable.remove("nonexistent");
 
-    assert(hashTable.search("kiwi", value) && value == 40);
-    assert(hashTable.search("grape", value) && value == 50);
-    assert(hashTable.search("pear", value) && value == 60);
+    for (int i = 0; i < 20; i++)
+    {
+        hashTable.insert("key" + to_string(i), i * 5);
+    }
+
+    for (int i = 0; i < 20; i++)
+    {
+        assert(hashTable.search("key" + to_string(i), value) && value == i * 5);
+    }
+
+    hashTable.insert("collision1", 100);
+    hashTable.insert("collision2", 200);
+    hashTable.insert("collision3", 300);
+
+    assert(hashTable.search("collision1", value) && value == 100);
+    assert(hashTable.search("collision2", value) && value == 200);
+    assert(hashTable.search("collision3", value) && value == 300);
+
+    hashTable.remove("collision2");
+    assert(!hashTable.search("collision2", value));
+    assert(hashTable.search("collision1", value) && value == 100);
+    assert(hashTable.search("collision3", value) && value == 300);
 
     cout << "All Hash Table tests passed!\n";
 }
-
 int main()
 {
     testHashTable();
