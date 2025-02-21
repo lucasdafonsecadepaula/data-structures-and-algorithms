@@ -5,57 +5,20 @@
 // Linear Search Function: Works on both sorted & unsorted arrays
 int linearSearch(const std::vector<int> &arr, int target)
 {
-    for (size_t i = 0; i < arr.size(); i++)
-    {
-        if (arr[i] == target)
-            return i;
-    }
-    return -1;
 }
 
 // Binary Search Function: Works only on sorted arrays
 int binarySearch(const std::vector<int> &arr, int target)
 {
-    int left = 0;
-    int right = arr.size() - 1;
-
-    while (left <= right)
-    {
-        int mid = left + (right - left) / 2;
-
-        if (arr[mid] == target)
-            return mid;
-        if (arr[mid] > target)
-        {
-            right = mid - 1;
-        }
-        else
-        {
-            left = mid + 1;
-        }
-    }
-
-    return -1;
 }
 
 // Binary Search Function (Recursive): Works only on sorted arrays
 int binarySearchRecHelper(const std::vector<int> &arr, int left, int right, int target)
 {
-    if (left > right)
-        return -1;
-
-    int mid = left + (right - left) / 2;
-
-    if (arr[mid] == target)
-        return mid;
-    if (arr[mid] < target)
-        return binarySearchRecHelper(arr, mid + 1, right, target);
-    return binarySearchRecHelper(arr, left, mid - 1, target);
 }
 
 int binarySearchRec(const std::vector<int> &arr, int target)
 {
-    return binarySearchRecHelper(arr, 0, arr.size() - 1, target);
 }
 
 //
