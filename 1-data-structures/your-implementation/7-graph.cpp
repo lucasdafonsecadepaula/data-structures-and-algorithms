@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cassert>
+using namespace std;
 
 class Node
 {
@@ -30,7 +31,6 @@ public:
     void addEdge(int src, int dest)
     {
     }
-    
 
     void removeEdge(int src, int dest)
     {
@@ -39,36 +39,28 @@ public:
     bool hasEdge(int src, int dest) const
     {
     }
-
-    void printAdjList() const
-    {
-        std::cout << "Adjacency List:" << std::endl;
-        for (int i = 0; i < vertices; i++)
-        {
-            std::cout << "Vertex " << i << ":";
-            Node *cur = adjList[i];
-            while (cur != nullptr)
-            {
-                std::cout << " " << cur->data;
-                cur = cur->next;
-            }
-            std::cout << std::endl;
-        }
-    }
-
-    void printAdjMatrix() const
-    {
-        std::cout << "Adjacency Matrix:" << std::endl;
-        for (int i = 0; i < vertices; i++)
-        {
-            for (int j = 0; j < vertices; j++)
-            {
-                std::cout << (hasEdge(i, j) ? "1 " : "0 ");
-            }
-            std::cout << std::endl;
-        }
-    }
 };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 void testGraph(Graph &graph)
 {
@@ -79,11 +71,35 @@ void testGraph(Graph &graph)
     graph.addEdge(3, 4);
 
     assert(graph.hasEdge(0, 1));
+    assert(graph.hasEdge(1, 0));
     assert(graph.hasEdge(1, 3));
+    assert(graph.hasEdge(3, 1));
+    assert(graph.hasEdge(2, 3));
+    assert(graph.hasEdge(3, 2));
+    assert(graph.hasEdge(3, 4));
+    assert(graph.hasEdge(4, 3));
+
     assert(!graph.hasEdge(0, 4));
+    assert(!graph.hasEdge(1, 4));
 
     graph.removeEdge(1, 3);
     assert(!graph.hasEdge(1, 3));
+    assert(!graph.hasEdge(3, 1));
+
+    graph.removeEdge(1, 3);
+    assert(!graph.hasEdge(1, 3));
+    assert(!graph.hasEdge(3, 1));
+
+    graph.addEdge(2, 2);
+    assert(!graph.hasEdge(2, 2));
+
+    graph.addEdge(-1, 3);
+    graph.addEdge(5, 3);
+    assert(!graph.hasEdge(-1, 3));
+    assert(!graph.hasEdge(5, 3));
+
+    graph.removeEdge(-1, 3);
+    graph.removeEdge(5, 3);
 }
 
 int main()
@@ -92,13 +108,11 @@ int main()
     {
         Graph myGraph(5);
         testGraph(myGraph);
-        myGraph.printAdjList();
-        myGraph.printAdjMatrix();
-        std::cout << "All tests passed!\n";
+        cout << "All tests passed!\n";
     }
-    catch (const std::exception &e)
+    catch (const exception &e)
     {
-        std::cout << "Exception: " << e.what() << std::endl;
+        cout << "Exception: " << e.what() << endl;
     }
     return 0;
 }
