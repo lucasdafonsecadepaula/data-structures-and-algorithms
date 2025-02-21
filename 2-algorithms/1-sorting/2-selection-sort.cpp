@@ -6,7 +6,8 @@ using namespace std;
 // Selection Sort picks the smallest element first and places it correctly.
 void selectionSort(vector<int> &arr)
 {
-    if (arr.empty()) return;
+    if (arr.empty())
+        return;
     for (int i = 0; i < arr.size() - 1; i++)
     {
         int minIndex = i;
