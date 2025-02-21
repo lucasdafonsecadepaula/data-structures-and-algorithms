@@ -49,9 +49,9 @@ public:
 
     int top() const
     {
-        if (size <= 0)
+        if (isEmpty())
         {
-            runtime_error("Stack is empty!");
+            throw out_of_range("Stack is empty!");
         }
         return data[size - 1];
     }
@@ -128,7 +128,7 @@ void testStack()
         stack.top();
         assert(false);
     }
-    catch (const runtime_error &e)
+    catch (const std::out_of_range &)
     {
     }
 }
