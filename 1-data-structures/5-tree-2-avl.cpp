@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cassert>
+#include <vector>
+using namespace std;
 
 class TreeNode
 {
@@ -35,8 +37,8 @@ private:
         x->right = y;
         y->left = T;
 
-        y->height = std::max(getHeight(y->left), getHeight(y->right)) + 1;
-        x->height = std::max(getHeight(x->left), getHeight(x->right)) + 1;
+        y->height = max(getHeight(y->left), getHeight(y->right)) + 1;
+        x->height = max(getHeight(x->left), getHeight(x->right)) + 1;
 
         return x;
     }
@@ -49,8 +51,8 @@ private:
         y->left = x;
         x->right = T;
 
-        x->height = std::max(getHeight(x->left), getHeight(x->right)) + 1;
-        y->height = std::max(getHeight(y->left), getHeight(y->right)) + 1;
+        x->height = max(getHeight(x->left), getHeight(x->right)) + 1;
+        y->height = max(getHeight(y->left), getHeight(y->right)) + 1;
 
         return y;
     }
@@ -67,7 +69,7 @@ private:
         else
             return node;
 
-        node->height = std::max(getHeight(node->left), getHeight(node->right)) + 1;
+        node->height = max(getHeight(node->left), getHeight(node->right)) + 1;
 
         int balance = getBalanceFactor(node);
 
@@ -127,7 +129,7 @@ private:
         if (!node)
             return nullptr;
 
-        node->height = std::max(getHeight(node->left), getHeight(node->right)) + 1;
+        node->height = max(getHeight(node->left), getHeight(node->right)) + 1;
         int balance = getBalanceFactor(node);
 
         if (balance > 1 && getBalanceFactor(node->left) >= 0)
@@ -162,14 +164,13 @@ private:
         return value < node->data ? searchRecursive(node->left, value) : searchRecursive(node->right, value);
     }
 
-    void inorderTraversal(TreeNode *node) const
+    void inOrderTraversalVector(TreeNode *node, vector<int> &arr) const
     {
-        if (node)
-        {
-            inorderTraversal(node->left);
-            std::cout << node->data << " ";
-            inorderTraversal(node->right);
-        }
+        if (node == nullptr)
+            return;
+        inOrderTraversalVector(node->left, arr);
+        arr.push_back(node->data);
+        inOrderTraversalVector(node->right, arr);
     }
 
     void destroyTree(TreeNode *node)
@@ -204,12 +205,34 @@ public:
         return searchRecursive(root, value);
     }
 
-    void inorder() const
+    vector<int> inorder() const
     {
-        inorderTraversal(root);
-        std::cout << std::endl;
+        vector<int> inOrderArr;
+        inOrderTraversalVector(root, inOrderArr);
+        return inOrderArr;
     }
 };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 void testAVLTree()
 {
@@ -232,6 +255,52 @@ void testAVLTree()
     assert(tree.search(80));
     assert(!tree.search(100));
 
+    AVLTree tree1;
+    tree1.insert(30);
+    tree1.insert(20);
+    tree1.insert(10);
+
+    vector<int> inOrderShouldBe = {10, 20, 30};
+
+    assert(tree1.inorder() == inOrderShouldBe);
+
+    assert(tree1.search(20));
+    assert(tree1.search(10));
+    assert(tree1.search(30));
+
+    AVLTree tree2;
+    tree2.insert(10);
+    tree2.insert(20);
+    tree2.insert(30);
+
+    assert(tree2.inorder() == inOrderShouldBe);
+
+    assert(tree2.search(10));
+    assert(tree2.search(20));
+    assert(tree2.search(30));
+
+    AVLTree tree3;
+    tree3.insert(30);
+    tree3.insert(10);
+    tree3.insert(20);
+
+    assert(tree3.inorder() == inOrderShouldBe);
+
+    assert(tree3.search(10));
+    assert(tree3.search(20));
+    assert(tree3.search(30));
+
+    AVLTree tree4;
+    tree4.insert(10);
+    tree4.insert(30);
+    tree4.insert(20);
+
+    assert(tree4.inorder() == inOrderShouldBe);
+
+    assert(tree4.search(10));
+    assert(tree4.search(20));
+    assert(tree4.search(30));
+
     tree.remove(20);
     assert(!tree.search(20));
 
@@ -241,12 +310,38 @@ void testAVLTree()
     tree.remove(50);
     assert(!tree.search(50));
 
-    tree.inorder();
+    tree.insert(25);
+    assert(tree.search(25));
+
+    tree.insert(25);
+    assert(tree.search(25));
+
+    tree.remove(70);
+    assert(!tree.search(70));
+
+    tree.remove(40);
+    assert(!tree.search(40));
+
+    tree.remove(60);
+    assert(!tree.search(60));
+
+    tree.remove(80);
+    assert(!tree.search(80));
+
+    tree.insert(90);
+    assert(tree.search(90));
+
+    vector<int> shouldBeSorted = tree.inorder();
+    for (int i = 1; i < shouldBeSorted.size(); i++)
+    {
+        assert(shouldBeSorted[i - 1] < shouldBeSorted[i]);
+    }
+
+    cout << "All AVL Tree tests passed!\n";
 }
 
 int main()
 {
     testAVLTree();
-    std::cout << "All AVL Tree tests passed!\n";
     return 0;
 }
