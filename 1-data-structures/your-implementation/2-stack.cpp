@@ -120,6 +120,6 @@ void testStack()
 int main()
 {
     testStack();
-    std::cout << "All tests passed!\n";
+    cout << "All tests passed!\n";
     return 0;
 }

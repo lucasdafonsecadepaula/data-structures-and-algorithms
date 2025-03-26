@@ -149,7 +149,7 @@ void testArray(Array &arr)
         arr.insert(-1, 99);
         assert(false);
     }
-    catch (const std::out_of_range &)
+    catch (const out_of_range &)
     {
     }
 
@@ -158,7 +158,7 @@ void testArray(Array &arr)
         arr.insert(100, 99);
         assert(false);
     }
-    catch (const std::out_of_range &)
+    catch (const out_of_range &)
     {
     }
 
@@ -169,7 +169,7 @@ void testArray(Array &arr)
         arr.remove(-1);
         assert(false);
     }
-    catch (const std::out_of_range &)
+    catch (const out_of_range &)
     {
     }
 
@@ -178,7 +178,7 @@ void testArray(Array &arr)
         arr.remove(100);
         assert(false);
     }
-    catch (const std::out_of_range &)
+    catch (const out_of_range &)
     {
     }
 
@@ -189,7 +189,7 @@ void testArray(Array &arr)
         arr.get(-1);
         assert(false);
     }
-    catch (const std::out_of_range &)
+    catch (const out_of_range &)
     {
     }
 
@@ -198,7 +198,7 @@ void testArray(Array &arr)
         arr.get(100);
         assert(false);
     }
-    catch (const std::out_of_range &)
+    catch (const out_of_range &)
     {
     }
 }

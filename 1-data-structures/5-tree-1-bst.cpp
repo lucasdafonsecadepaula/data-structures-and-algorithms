@@ -196,6 +196,6 @@ void testBST()
 int main()
 {
     testBST();
-    std::cout << "All BST tests passed!\n";
+    cout << "All BST tests passed!\n";
     return 0;
 }

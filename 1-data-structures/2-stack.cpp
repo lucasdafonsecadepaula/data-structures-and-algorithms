@@ -128,7 +128,7 @@ void testStack()
         stack.top();
         assert(false);
     }
-    catch (const std::out_of_range &)
+    catch (const out_of_range &)
     {
     }
 }
@@ -136,6 +136,6 @@ void testStack()
 int main()
 {
     testStack();
-    std::cout << "All tests passed!\n";
+    cout << "All tests passed!\n";
     return 0;
 }

@@ -183,7 +183,7 @@ void testLinkedList(LinkedList &list)
     list.remove(999);
     assert(list.size() == 3);
 
-    std::cout << "All tests passed!\n";
+    cout << "All tests passed!\n";
 }
 
 int main()
