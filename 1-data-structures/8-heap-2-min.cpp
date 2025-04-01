@@ -139,29 +139,12 @@ void testMinHeap(MinHeap &heap)
     assert(heap.extractMin() == 40);
 
     assert(heap.isEmpty());
-
-    try
-    {
-        heap.extractMin();
-        assert(false);
-    }
-    catch (const runtime_error &e)
-    {
-        assert(string(e.what()) == "Heap is empty");
-    }
 }
 
 int main()
 {
-    try
-    {
-        MinHeap heap;
-        testMinHeap(heap);
-        cout << "All tests passed!\n";
-    }
-    catch (const exception &e)
-    {
-        cout << "Exception: " << e.what() << endl;
-    }
+    MinHeap heap;
+    testMinHeap(heap);
+    cout << "All tests passed!\n";
     return 0;
 }

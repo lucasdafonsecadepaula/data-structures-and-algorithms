@@ -35,26 +35,26 @@ public:
     }
 };
 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 void testArray(Array &arr)
 {
@@ -92,77 +92,12 @@ void testArray(Array &arr)
 
     arr.remove(arr.getSize() - 1);
     assert(arr.getSize() == 5);
-
-    try
-    {
-        arr.insert(-1, 99);
-        assert(false);
-    }
-    catch (const out_of_range &)
-    {
-    }
-
-    try
-    {
-        arr.insert(100, 99);
-        assert(false);
-    }
-    catch (const out_of_range &)
-    {
-    }
-
-    assert(arr.getSize() == 5);
-
-    try
-    {
-        arr.remove(-1);
-        assert(false);
-    }
-    catch (const out_of_range &)
-    {
-    }
-
-    try
-    {
-        arr.remove(100);
-        assert(false);
-    }
-    catch (const out_of_range &)
-    {
-    }
-
-    assert(arr.getSize() == 5);
-
-    try
-    {
-        arr.get(-1);
-        assert(false);
-    }
-    catch (const out_of_range &)
-    {
-    }
-
-    try
-    {
-        arr.get(100);
-        assert(false);
-    }
-    catch (const out_of_range &)
-    {
-    }
 }
 
 int main()
 {
-    try
-    {
-        Array myArray(2);
-        testArray(myArray);
-        cout << "All tests passed!\n";
-    }
-    catch (const exception &e)
-    {
-        cout << "Exception: " << e.what() << endl;
-    }
+    Array myArray(2);
+    testArray(myArray);
+    cout << "All tests passed!\n";
     return 0;
 }

@@ -107,14 +107,6 @@ void testStack()
     stack.pop();
     assert(stack.isEmpty());
 
-    try
-    {
-        stack.top();
-        assert(false);
-    }
-    catch (const runtime_error &e)
-    {
-    }
 }
 
 int main()

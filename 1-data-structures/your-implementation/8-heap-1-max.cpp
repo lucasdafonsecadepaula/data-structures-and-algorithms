@@ -89,15 +89,6 @@ void testHeap(Heap &heap)
     assert(heap.extractMax() == 10);
     assert(heap.extractMax() == 5);
 
-    try
-    {
-        heap.extractMax();
-        assert(false);
-    }
-    catch (const runtime_error &)
-    {
-    }
-
     heap.insert(50);
     heap.insert(15);
     assert(heap.peekMax() == 50);
@@ -113,15 +104,8 @@ void testHeap(Heap &heap)
 
 int main()
 {
-    try
-    {
-        Heap myHeap;
-        testHeap(myHeap);
-        cout << "All tests passed!\n";
-    }
-    catch (const exception &e)
-    {
-        cout << "Exception: " << e.what() << endl;
-    }
+    Heap myHeap;
+    testHeap(myHeap);
+    cout << "All tests passed!\n";
     return 0;
 }

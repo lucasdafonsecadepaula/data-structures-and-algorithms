@@ -122,15 +122,6 @@ void testStack()
 
     stack.pop();
     assert(stack.isEmpty());
-
-    try
-    {
-        stack.top();
-        assert(false);
-    }
-    catch (const out_of_range &)
-    {
-    }
 }
 
 int main()

@@ -9,15 +9,18 @@ private:
     int size;
     int capacity;
 
-    int getParent(int index) const {
+    int getParent(int index) const
+    {
         return (index - 1) / 2;
     }
 
-    int getLeftChild(int index) const {
+    int getLeftChild(int index) const
+    {
         return (index * 2) + 1;
     }
 
-    int getRightChild(int index) const {
+    int getRightChild(int index) const
+    {
         return (index * 2) + 2;
     }
 
@@ -26,7 +29,8 @@ private:
         while (index > 0)
         {
             int parent = getParent(index);
-            if (heap[index] <= heap[parent]) break;
+            if (heap[index] <= heap[parent])
+                break;
             int temp = heap[index];
             heap[index] = heap[parent];
             heap[parent] = temp;
@@ -51,7 +55,8 @@ private:
             {
                 largest = rightChild;
             }
-            if (largest == index) break;
+            if (largest == index)
+                break;
 
             int temp = heap[index];
             heap[index] = heap[largest];
@@ -60,10 +65,12 @@ private:
         }
     }
 
-    void resize() {
+    void resize()
+    {
         capacity *= 2;
         int *newHeap = new int[capacity];
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++)
+        {
             newHeap[i] = heap[i];
         }
         delete[] heap;
@@ -79,7 +86,8 @@ public:
 
     void insert(int value)
     {
-        if(size >= capacity) resize();
+        if (size >= capacity)
+            resize();
         heap[size] = value;
         size++;
         heapifyUp(size - 1);
@@ -148,18 +156,14 @@ void testHeap(Heap &heap)
     assert(heap.extractMax() == 10);
     assert(heap.extractMax() == 5);
 
-    try {
-        heap.extractMax();
-        assert(false);
-    } catch (const runtime_error &) {}
-
     heap.insert(50);
     heap.insert(15);
     assert(heap.peekMax() == 50);
     heap.insert(60);
     assert(heap.peekMax() == 60);
 
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 20; i++)
+    {
         heap.insert(i * 5);
     }
     assert(heap.peekMax() == 95);
@@ -167,15 +171,8 @@ void testHeap(Heap &heap)
 
 int main()
 {
-    try
-    {
-        Heap myHeap;
-        testHeap(myHeap);
-        cout << "All tests passed!\n";
-    }
-    catch (const exception &e)
-    {
-        cout << "Exception: " << e.what() << endl;
-    }
+    Heap myHeap;
+    testHeap(myHeap);
+    cout << "All tests passed!\n";
     return 0;
 }

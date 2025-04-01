@@ -104,15 +104,8 @@ void testGraph(Graph &graph)
 
 int main()
 {
-    try
-    {
-        Graph myGraph(5);
-        testGraph(myGraph);
-        cout << "All tests passed!\n";
-    }
-    catch (const exception &e)
-    {
-        cout << "Exception: " << e.what() << endl;
-    }
+    Graph myGraph(5);
+    testGraph(myGraph);
+    cout << "All tests passed!\n";
     return 0;
 }
